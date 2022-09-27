@@ -24,6 +24,8 @@ export const Login = () => {
     } catch (error: any) {
       if (error?.response?.status === 401) {
         message.error("Nome de usuário ou senha inválidos");
+      } else {
+        message.error("Erro ao logar no financeiro");
       }
     }
   }
