@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosInstance, AxiosError } from "axios";
+import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from "axios";
 import { useMemo } from "react";
 import { useUser } from "../../../context";
 
@@ -6,8 +6,8 @@ interface useHttpParams extends AxiosRequestConfig {}
 
 const UNAUTHORIZED = 401;
 
-export function useHttp(config: useHttpParams) {
-  const httpInstance = axios.create(config);
+export function useHttp(config?: useHttpParams) {
+  const httpInstance = axios.create({ ...config, baseURL: "/api" });
   const { setUser } = useUser();
 
   function errorHandler(error: AxiosError) {
@@ -18,7 +18,10 @@ export function useHttp(config: useHttpParams) {
     throw error;
   }
 
-  async function get(url: string, config?: useHttpParams) {
+  async function get<T>(
+    url: string,
+    config?: useHttpParams
+  ): Promise<AxiosResponse<T, any> | undefined> {
     try {
       return await httpInstance.get(url, config);
     } catch (error: any) {
@@ -26,7 +29,11 @@ export function useHttp(config: useHttpParams) {
     }
   }
 
-  async function post(url: string, data?: any, config?: useHttpParams) {
+  async function post<T>(
+    url: string,
+    data?: any,
+    config?: useHttpParams
+  ): Promise<AxiosResponse<T, any> | undefined> {
     try {
       return await httpInstance.post(url, data, config);
     } catch (error: any) {
