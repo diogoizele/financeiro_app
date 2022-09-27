@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import { User } from "../../@types/user.type";
 
 import { useUser } from "../../context";
 import { useHttp } from "../api/_base/useHttp.hook";
@@ -9,16 +10,16 @@ type LoginParams = {
 };
 
 export function useAuth() {
-  const instance = useHttp({ baseURL: import.meta.env.VITE_API_URL });
+  const instance = useHttp();
   const { user, setUser } = useUser();
 
   const login = useCallback(async (payload: LoginParams) => {
     try {
-      const response = await instance.post("/auth/login", null, {
+      const response = await instance.post<User>("/auth/login", null, {
         auth: payload,
       });
 
-      setUser(response?.data);
+      setUser(response!.data);
     } catch (error) {
       throw error;
     }
@@ -33,7 +34,7 @@ export function useAuth() {
 
   return useMemo(
     () => ({
-      isAuth: !!user,
+      isAuth: Object.keys(user ?? {}).length > 0,
       login,
       logout,
     }),
