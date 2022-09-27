@@ -16,7 +16,7 @@ export const ActivityHeader = ({
 }: ActivityHeaderProps) => {
   return (
     <styled.ActivityHeaderContainer>
-      <Typography.Title style={{ margin: 0 }}>{title}</Typography.Title>
+      <Typography.Title level={2} style={{ margin: 0 }}>{title}</Typography.Title>
       <Button type="primary" size="large" onClick={primaryAction.onClick}>
         {primaryAction.label}
       </Button>
