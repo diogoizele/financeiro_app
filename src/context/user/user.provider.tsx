@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { UserContext } from "./user.context";
 
-import type { User } from "../../@types/user";
+import type { User } from "../../@types/user.type";
 
 interface UserProviderProps {
   children: React.ReactNode;
