@@ -10,7 +10,7 @@ import {
   FallOutlined,
   SlidersOutlined,
 } from "@ant-design/icons";
-import { MenuProps } from "antd";
+import { MenuProps, Typography } from "antd";
 
 import * as styled from "./layout.styles";
 
@@ -34,10 +34,10 @@ function getItem(
 
 const items: MenuItem[] = [
   getItem("Dashboard", "/", <PieChartOutlined />),
-  getItem("Movimentação", "/activity", <ContainerOutlined />, [
-    getItem("Entrada", "/activity/income", <RiseOutlined />),
-    getItem("Saída", "/activity/expense", <FallOutlined />),
-    getItem("Aporte", "/activity/contribution", <SlidersOutlined />),
+  getItem("Movimentações", "/activity", <ContainerOutlined />, [
+    getItem("Entradas", "/activity/income", <RiseOutlined />),
+    getItem("Saídas", "/activity/expense", <FallOutlined />),
+    getItem("Aportes", "/activity/contribution", <SlidersOutlined />),
   ]),
   getItem("Compras futuras", "/purchase", <ShoppingOutlined />),
 ];
@@ -57,13 +57,14 @@ export const Layout = ({ children }: LayoutProps) => {
   }
 
   function handleNavigate({ key }: { key: React.Key }) {
-    console.log("key", key);
-
     navigate(key as string);
   }
 
   return (
     <styled.LayoutContainer>
+      <styled.LayoutHeader isMenuCollapsed={collapsed}>
+        <Typography.Text></Typography.Text>
+      </styled.LayoutHeader>
       <styled.MenuContainer>
         <styled.MenuCollapseButton
           collapsed={collapsed}

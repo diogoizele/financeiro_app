@@ -2,12 +2,34 @@ import styled from "@emotion/styled";
 import { Menu } from "antd";
 import { THEME } from "../../styles";
 
+const LAYOUT_HEADER_HEIGHT = "3rem";
+
 export const LayoutContainer = styled("div")(() => ({
   display: "flex",
 }));
 
+interface LayoutHeaderProps {
+  isMenuCollapsed: boolean;
+}
+
+export const LayoutHeader = styled("header")<LayoutHeaderProps>(
+  ({ isMenuCollapsed }) => ({
+    borderBottom: "1px solid #e5e5e5",
+    height: LAYOUT_HEADER_HEIGHT,
+    width: isMenuCollapsed ? "calc(100% - 5rem)" : "calc(100% - 11.3rem)",
+    marginLeft: isMenuCollapsed ? "5rem" : "11.3rem",
+    position: "absolute",
+    transition: "0.3s",
+    padding: "0 1rem",
+    display: "flex",
+    alignItems: "center",
+  })
+);
+
 export const ChildrenContainer = styled("div")(() => ({
-  height: "100vh",
+  height: `calc(100vh - ${LAYOUT_HEADER_HEIGHT})`,
+  marginTop: LAYOUT_HEADER_HEIGHT,
+
   display: "flex",
   overflow: "hidden",
   width: "100%",
@@ -36,7 +58,7 @@ export const MenuCollapseButton = styled("button")<MenuCollapseButtonProps>(
   ({ collapsed }) => ({
     position: "absolute",
     top: "1rem",
-    left: collapsed ? "4rem" : "10rem",
+    left: collapsed ? "4rem" : "10.3rem",
     transition: "left 0.3s",
     zIndex: 2,
     border: "none",
